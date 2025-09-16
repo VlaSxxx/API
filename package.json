@@ -7,11 +7,16 @@
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
-  "keywords": ["express", "server", "api"],
+  "keywords": [
+    "express",
+    "server",
+    "api"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "axios": "^1.12.2",
     "express": "^5.1.0"
   },
   "devDependencies": {
