@@ -12,14 +12,13 @@ router.get('/', async (req, res) => {
     }
   });
 
-// Получить один пост по ID
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const post = await getData(`/posts/${id}`);
+        const post = await getData(`/posts${id}`);
         res.json(post);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error.massage});
     }
 });
 

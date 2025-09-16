@@ -1,27 +1,27 @@
-const express = require('express');
-const dotenv = require('dotenv');
-dotenv.config();
+// const express = require('express');
+// const dotenv = require('dotenv');
+// dotenv.config();
 
-const indexRouter = require('./roustes/app');
-const usersRouter = require('./roustes/users');
-const todosRouter = require('./roustes/todos');
-const postsRouter = require('./roustes/posts');
+// const indexRouter = require('./roustes/app');
+// const usersRouter = require('./roustes/users');
+// const todosRouter = require('./roustes/todos');
+// const postsRouter = require('./roustes/posts');
 
 
-const app = express();
-const PORT = 12000;
+// const app = express();
+// const PORT = 12000;
 
-app.use(express.json());
+// app.use(express.json());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/todos', todosRouter);
-app.use('/posts', postsRouter);
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
+// app.use('/todos', todosRouter);
+// app.use('/posts', postsRouter);
 
-app.listen(PORT, () => {
-  console.log(`Сервер запущен на http://localhost:${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Сервер запущен на http://localhost:${PORT}`);
+//   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+// });
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -146,3 +146,64 @@ app.listen(PORT, () => {
 
 // });
 
+//////////////////////////////////////////////////////////////////////
+
+// const express = require('express');
+
+// const app = express()
+// const PORT = 12000;
+
+// app.use(express.json());
+
+// async function getData() {
+//   try {
+//     const { default: fetch } = await import('node-fetch');
+//     const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+//     if (!response.ok) {
+//       throw new Error(`Error: ${response.status}`); 
+//     }
+//     const data = await response.json();
+//     return(data);
+//   } catch (error) {
+//     console.log('Problem with connection', error);
+//     throw error;
+//   }
+// }
+
+// // Маршрут для отображения данных на сайте
+// app.get('/', async (req, res) => {
+//   try {
+//     const data = await getData();
+//     res.json(data);
+//   } catch (error) {
+//     res.status(500).send('Error');
+//   }
+// })
+
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port http://localhost:${PORT}`);
+// })
+
+
+//////////////////////////////////////////////////////////////////////
+
+async function getData() {
+  try {
+    const { default: fetch } = await import('node-fetch');
+    const [response1, response2] = await Promise.all([
+      fetch('https://jsonplaceholder.typicode.com/posts/1'),
+      fetch('https://jsonplaceholder.typicode.com/posts')
+    ]);
+    if (!response1.ok || !response2.ok) {
+      throw new Error(`Error: ${response1.status} || ${response2.status}`);
+    }
+    const data1 = await response1.json();
+    const data2 = await response2.json();
+    console.log(data1, data2);
+  } catch (error) {
+    console.log('Problem with connection', error);
+    throw error;
+  }
+}
+
+getData();
